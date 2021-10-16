@@ -1,0 +1,8 @@
+version: '3.8'
+
+# Services
+services:
+
+  # PHP Service
+  ducon:
+    build: ./
