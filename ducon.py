@@ -91,11 +91,6 @@ async def ducon(ctx):
   await ctx.send(msg)
 
 @bot.command()
-async def hello(ctx):
-  msg = "Hello {0.mention} !".format(ctx.author)
-  await ctx.send(msg)
-
-@bot.command()
 async def random1825(ctx):
   post = get_random_1825()
   embed = discord.Embed(
@@ -130,5 +125,9 @@ async def risibank(ctx, needle = None):
   else:
     msg = "$ducon risibank [KHEYWORD]\nPoste un sitcker de Risibank en rapport avec la recherche."
   await ctx.send(msg)
+
+@bot.command()
+async def isUp(ctx):
+  await ctx.send("I'M UP MOTHERFUCKER !!")
 
 bot.run(os.environ['token'])

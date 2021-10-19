@@ -1,8 +1,10 @@
 version: '3.8'
 
-# Services
 services:
 
-  # PHP Service
   ducon:
+    restart: always
     build: ./
+    volumes:
+      - .:/usr/src/app
+    command: ./ducon.py

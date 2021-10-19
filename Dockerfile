@@ -8,6 +8,4 @@ RUN . venv/bin/activate
 RUN /usr/local/bin/python -m pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
-
-CMD [ "python", "./ducon.py" ]
+ENTRYPOINT [ "python" ]
