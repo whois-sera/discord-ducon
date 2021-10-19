@@ -21,6 +21,8 @@ intents.members = True
 bot = commands.Bot(command_prefix='./', description=description, intents=intents)
 
 def get_random_risibank_by_search(kw):
+  """Return a Risibank sticker corresponding to the given keyword"""
+
   try:
     url = 'https://api.risibank.fr/api/v0/search'
     myobj = {'search': kw}
@@ -35,6 +37,8 @@ def get_random_risibank_by_search(kw):
     return "Aucun résultat !"
 
 def get_random_1825():
+  """Retrun a random 18-25 post from the first page"""
+
   base_post_url = "https://www.jeuxvideo.com"
   html_dom = requests.get('https://www.jeuxvideo.com/forums/0-51-0-1-0-1-0-blabla-18-25-ans.htm').text
   soup = BeautifulSoup(html_dom, "lxml")
@@ -47,6 +51,8 @@ def get_random_1825():
   }
 
 def get_best_1825_post():
+  """Return the most popular post in the first page of 18-25"""
+
   base_post_url = "https://www.jeuxvideo.com"
   html_text = requests.get('https://www.jeuxvideo.com/forums/0-51-0-1-0-1-0-blabla-18-25-ans.htm').text
   soup = BeautifulSoup(html_text, "lxml")
@@ -80,6 +86,8 @@ def get_best_1825_post():
 
 @bot.event
 async def on_ready():
+  """Display when the bot is up and running"""
+
   print('Logged in as')
   print(bot.user.name)
   print(bot.user.id)
@@ -87,11 +95,15 @@ async def on_ready():
 
 @bot.command()
 async def ducon(ctx):
+  """Affiche la raison d'etre du bot"""
+
   msg = "I'LL MAKE THIS SERVER GREAT AGAIN"
   await ctx.send(msg)
 
 @bot.command()
 async def random1825(ctx):
+  """Envoi un post 18-25 random parmis les 25 premiers"""
+
   post = get_random_1825()
   embed = discord.Embed(
       type="rich",
@@ -103,6 +115,8 @@ async def random1825(ctx):
 
 @bot.command()
 async def best1825(ctx):
+  """Envoi le post 18-25 avec le plus de réponse, en 1ere page"""
+
   post = get_best_1825_post()
   embed = discord.Embed(
       type="rich",
@@ -114,11 +128,18 @@ async def best1825(ctx):
 
 @bot.command()
 async def paix(ctx):
+  """J'ai la flemme de documenter cette merde"""
+
   msg = "https://image.noelshack.com/fichiers/2021/05/7/1612738731-7484ae4516cs5420.jpg"
   await ctx.send(msg)
 
 @bot.command()
 async def risibank(ctx, needle = None):
+  """Envoi un sticker Risibank suivant le theme donné
+  
+  ./risibank <theme>
+  """
+
   msg = "https://image.noelshack.com/fichiers/2021/05/7/1612738731-7484ae4516cs5420.jpg"
   if needle is not None:
     msg = get_random_risibank_by_search(needle)
@@ -128,6 +149,8 @@ async def risibank(ctx, needle = None):
 
 @bot.command()
 async def isUp(ctx):
+  """S'assurer que le bot est up"""
+
   await ctx.send("I'M UP MOTHERFUCKER !!")
 
 bot.run(os.environ['token'])
