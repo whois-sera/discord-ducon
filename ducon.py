@@ -5,6 +5,9 @@ from dotenv import load_dotenv
 
 load_dotenv('.env')
 
+rootDir = os.path.abspath(os.path.dirname(__file__))
+rDir = os.path.join(rootDir, "ressources")
+
 logger = logging.getLogger('discord')
 logger.setLevel(logging.ERROR)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
@@ -99,6 +102,16 @@ async def ducon(ctx):
 
   msg = "I'LL MAKE THIS SERVER GREAT AGAIN"
   await ctx.send(msg)
+
+@bot.command()
+async def gambate(ctx):
+  """Encourage chaudement"""
+
+  imgs = os.listdir(os.path.join(rDir, "gambate"))
+  rand = random.choice(imgs)
+  file = os.path.join(rDir, "gambate", rand)
+  img = discord.File(file)
+  await ctx.send(file=img)
 
 @bot.command()
 async def random1825(ctx):
