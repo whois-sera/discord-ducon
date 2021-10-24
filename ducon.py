@@ -32,7 +32,7 @@ def get_random_risibank_by_search(kw):
 
     ret = requests.post(url, data = myobj)
     dict_stickers = json.loads(ret.text)
-    stickers = list(filter(lambda like: like["likes"] > 500, dict_stickers["stickers"]))
+    stickers = list(filter(lambda like: like["views"] > 1000, dict_stickers["stickers"]))
     if len(stickers) == 0:
       stickers = dict_stickers["stickers"]
     return random.choice(stickers)["risibank_link"]
