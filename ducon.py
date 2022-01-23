@@ -27,15 +27,14 @@ def get_random_risibank_by_search(kw):
   """Return a Risibank sticker corresponding to the given keyword"""
 
   try:
-    url = 'https://api.risibank.fr/api/v0/search'
-    myobj = {'search': kw}
+    url = 'https://risibank.fr/api/v1/medias/search?query=' + kw + '&category=sticker&page=1'
 
-    ret = requests.post(url, data = myobj)
+    ret = requests.get(url)
     dict_stickers = json.loads(ret.text)
-    stickers = list(filter(lambda like: like["views"] > 1000, dict_stickers["stickers"]))
+    stickers = list(filter(lambda like: like["interact_count"] >= 100, dict_stickers["medias"]))
     if len(stickers) == 0:
-      stickers = dict_stickers["stickers"]
-    return random.choice(stickers)["risibank_link"]
+      stickers = dict_stickers["media"]
+    return random.choice(stickers)["cache_url"]
   except:
     return "Aucun résultat !"
 
